@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Recetas</h1>
+  <%= link_to "Nueva receta", new_recipe_path, class: "btn btn-success" %>
+</div>
+
+<div id="recipes" class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Tiempo de cocción</th>
+        <th>Dificultad</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recipes.each do |recipe| %>
+        <tr>
+          <td><%= link_to recipe.title, recipe %></td>
+          <td><%= recipe.cook_time %> mins</td>
+          <td><%= recipe.difficulty %></td>
+          <td><%= link_to "Ver", recipe, class: "btn btn-sm btn-info" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

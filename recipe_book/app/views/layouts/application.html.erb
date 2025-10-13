@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RecipeBook</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body>
+
+    <header class="bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark container">
+        <%= link_to "Libro de Recetas", root_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <%= link_to "Todas las Recetas", recipes_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Nueva Receta", new_recipe_path, class: "nav-link" %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container mt-4">
+      <%= yield %>
+    </main>
+    
+  </body>
+</html>
