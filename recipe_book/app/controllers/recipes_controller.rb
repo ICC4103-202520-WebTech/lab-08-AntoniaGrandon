@@ -1,5 +1,7 @@
 class RecipesController < ApplicationController
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_recipe, only: %i[ show edit update destroy ]
+  before_action :authorize_user!, only: %i[ edit update destroy ]
 
   # GET /recipes or /recipes.json
   def index
@@ -22,6 +24,7 @@ class RecipesController < ApplicationController
   # POST /recipes or /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.user = current_user
 
     respond_to do |format|
       if @recipe.save
@@ -49,6 +52,7 @@ class RecipesController < ApplicationController
 
   # DELETE /recipes/1 or /recipes/1.json
   def destroy
+    # ensure only owner can destroy (extra safety in controller)
     @recipe.destroy!
 
     respond_to do |format|
@@ -60,11 +64,16 @@ class RecipesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
-      @recipe = Recipe.find(params.expect(:id))
+      @recipe = Recipe.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def recipe_params
       params.require(:recipe).permit(:title, :cook_time, :difficulty, :instructions)
+    end
+
+    def authorize_user!
+      return if @recipe.user == current_user
+      redirect_to recipes_path, alert: "No estás autorizado para realizar esa acción."
     end
 end
