@@ -4,8 +4,10 @@ one:
   title: MyString
   cook_time: 1
   difficulty: MyString
+  user_id: 2
 
 two:
-  title: MyString
-  cook_time: 1
+  title: MyString 2
+  cook_time: 2
   difficulty: MyString
+  user_id: 1

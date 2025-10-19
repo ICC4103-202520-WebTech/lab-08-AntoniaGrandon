@@ -7,8 +7,8 @@
       </p>
     </div>
     <div>
-      <% if user_signed_in? && @recipe.user == current_user %>
-  <%= link_to "Eliminar", @recipe, data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "btn btn-danger" %>
+      <% if can? :destroy, @recipe %>
+        <%= link_to "Eliminar", @recipe, data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "btn btn-danger" %>
       <% end %>
     </div>
   </div>
@@ -17,7 +17,7 @@
     <%= @recipe.instructions %>
   </div>
   <div class="card-footer">
-    <% if user_signed_in? && @recipe.user == current_user %>
+    <% if can? :update, @recipe %>
       <%= link_to "Editar esta receta", edit_recipe_path(@recipe), class: "btn btn-secondary" %>
     <% end %>
     <%= link_to "Volver a las recetas", recipes_path, class: "btn btn-outline-dark" %>
